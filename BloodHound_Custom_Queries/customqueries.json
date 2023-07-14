@@ -255,6 +255,21 @@
             ]
         },
         {
+			"name": "Users with MS SQL Admin Rights",
+			"category": "Privileged Accounts",
+			"queryList": [
+				{
+                    "final": false,
+                    "title": "Select a Domain...",
+                    "query": "MATCH (n:Domain) RETURN n.name ORDER BY n.name DESC"
+                },
+				{
+					"final": true,
+					"query": "MATCH p1=shortestPath((u1:User {domain: $result})-[r1:MemberOf*1..]->(g1:Group)) MATCH p2=(u1)-[:SQLAdmin*1..]->(c:Computer) RETURN p2"
+				}
+			]
+		},
+        {
             "name": "AS-REP Roastable Principals",
             "category": "Kerberos",
             "queryList": [
